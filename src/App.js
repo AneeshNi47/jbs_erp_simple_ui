@@ -56,6 +56,10 @@ const App = ({ auth }) => {
               <Icon name="building" />
               Contractors
             </Menu.Item>
+            <Menu.Item as="a" href="#/contractors" onClick={closeSidebar}>
+              <Icon name="users" />
+              Users
+            </Menu.Item>
           </Sidebar>
         )}
 

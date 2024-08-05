@@ -37,7 +37,7 @@ export const USER_LOADED = "USER_LOADED";
 export const GET_USERS = "GET_USERS";
 export const AUTH_ERROR = "AUTH_ERROR";
 
-export const BASE_URL = "http://127.0.0.1:8000";
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const TASK_STATUS_TYPES = {
 
   'planning': 'Planning',

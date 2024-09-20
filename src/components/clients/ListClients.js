@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Table, Button, Card, Grid, StatisticLabel, StatisticValue, Statistic } from "semantic-ui-react";
+import { Button, Card, Grid, StatisticLabel, StatisticValue, Statistic } from "semantic-ui-react";
 import { GET_CLIENTS } from "../../actions/types";
 import { getItems } from "../../actions/crud_operations";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import ListingTable from "../ListingTable";  // Ensure the path is correct for ListingTable
 
 export class ListClients extends Component {
   componentDidMount() {
@@ -11,12 +12,17 @@ export class ListClients extends Component {
   }
 
   handleDelete = (id) => {
-    console.log(id)
+    console.log(id);
   };
 
   render() {
     const { clients } = this.props;
-    const totalProjects = 0
+    const totalProjects = 0;
+
+    // Define headers and field keys for the ListingTable
+    const headers = ["S.no", "Name", "Address", "Contact Person", "Contact Email", "Support Email"];
+    const fieldKeys = ["id", "name", "address", "contact_person", "contact_email", "support_email"];
+
     return (
       <>
         <Grid>
@@ -32,7 +38,7 @@ export class ListClients extends Component {
             <Grid.Column>
               <Card>
                 <Statistic>
-                  <StatisticValue>{totalProjects}</StatisticValue>
+                  <StatisticValue>{clients.length}</StatisticValue>
                   <StatisticLabel>Active Clients</StatisticLabel>
                 </Statistic>
               </Card>
@@ -46,50 +52,29 @@ export class ListClients extends Component {
               <h3>Clients</h3>
             </Grid.Column>
             <Grid.Column textAlign="right">
-
               <Button primary onClick={this.props.openAddClient} icon>
                 Add Client
               </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Address</Table.HeaderCell>
-              <Table.HeaderCell>Contact Person</Table.HeaderCell>
-              <Table.HeaderCell>Contact Email</Table.HeaderCell>
-              <Table.HeaderCell>Support Email</Table.HeaderCell>
-              <Table.HeaderCell>Actions</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
 
-          <Table.Body>
-            {clients && clients.map((client) => (
-              <Table.Row key={client.id}>
-                <Table.Cell>{client.name}</Table.Cell>
-                <Table.Cell>{client.address}</Table.Cell>
-                <Table.Cell>{client.contact_person}</Table.Cell>
-                <Table.Cell>{client.contact_email}</Table.Cell>
-                <Table.Cell>{client.support_email}</Table.Cell>
-                <Table.Cell>
-                  <Button color="red" onClick={() => this.handleDelete(client.id)}>
-                    Delete
-                  </Button>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table></>
+        <ListingTable
+          items={clients}
+          headers={headers}
+          fieldKeys={fieldKeys}
+          deleteItem={this.handleDelete}
+          viewLinkBase="/client-view"
+        />
+      </>
     );
   }
 }
 
 ListClients.propTypes = {
-  fetchItems: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
+  getItems: PropTypes.func.isRequired,
   clients: PropTypes.array.isRequired,
+  openAddClient: PropTypes.func, // Optional if not provided
 };
 
 const mapStateToProps = (state) => ({

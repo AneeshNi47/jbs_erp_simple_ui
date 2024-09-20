@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Button, Table, Form, Grid, Card,StatisticValue, StatisticLabel, Statistic } from "semantic-ui-react";
+import { Button, Form, Grid, Card, StatisticValue, StatisticLabel, Statistic } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/crud_operations";
 import { TASK_STATUS_TYPES, GET_PROJECTS } from "../../actions/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import ProjectListingTable from "./ProjectListingTable";
 
 export class ListProjects extends Component {
   state = {
@@ -43,26 +42,26 @@ export class ListProjects extends Component {
           <Grid.Row columns={3}>
             <Grid.Column>
               <Card>
-              <Statistic>
-    <StatisticValue>{totalProjects}</StatisticValue>
-    <StatisticLabel>Downloads</StatisticLabel>
-  </Statistic>
+                <Statistic>
+                  <StatisticValue>{totalProjects}</StatisticValue>
+                  <StatisticLabel>Projects</StatisticLabel>
+                </Statistic>
               </Card>
             </Grid.Column>
             <Grid.Column>
               <Card>
-                <Card.Content>
-                  <Card.Header>Completed Projects</Card.Header>
-                  <Card.Description>{completedProjects}</Card.Description>
-                </Card.Content>
+                <Statistic>
+                  <StatisticValue>{completedProjects}</StatisticValue>
+                  <StatisticLabel>Completed Projects</StatisticLabel>
+                </Statistic>
               </Card>
             </Grid.Column>
             <Grid.Column>
               <Card>
-                <Card.Content>
-                  <Card.Header>In Progress Projects</Card.Header>
-                  <Card.Description>{inProgressProjects}</Card.Description>
-                </Card.Content>
+                <Statistic>
+                  <StatisticValue>{inProgressProjects}</StatisticValue>
+                  <StatisticLabel>In Progress</StatisticLabel>
+                </Statistic>
               </Card>
             </Grid.Column>
           </Grid.Row>
@@ -95,46 +94,18 @@ export class ListProjects extends Component {
             </Grid.Column>
             <Grid.Column textAlign="right">
 
-            <Button primary onClick={this.props.openAddProject} icon>
-            Add Project 
+              <Button primary onClick={this.props.openAddProject} icon>
+                Add Project
               </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
 
-        <Table celled striped>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>#</Table.HeaderCell>
-              <Table.HeaderCell>Title</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-              <Table.HeaderCell>Status</Table.HeaderCell>
-              <Table.HeaderCell>Action</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {projects.map((project, index) => (
-              <Table.Row key={project.id}>
-                <Table.Cell>{index + 1}</Table.Cell>
-                <Table.Cell>{project.name}</Table.Cell>
-                <Table.Cell>{project.description}</Table.Cell>
-                <Table.Cell>{TASK_STATUS_TYPES[project.status]}</Table.Cell>
-                <Table.Cell>
-                  <Button
-                    icon
-                    color="yellow"
-                    onClick={() => this.props.editProject(project)}
-                  >
-                    <FontAwesomeIcon icon={faEdit} />
-                  </Button>
-                  <Button icon color="red" onClick={this.props.openAddProject}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </Button>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <ProjectListingTable
+          projects={projects}
+          editProject={this.props.editProject}
+          openAddProject={this.props.openAddProject}
+        />
       </>
     );
   }

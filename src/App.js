@@ -5,6 +5,8 @@ import TaskDashboard from "./components/tasks/TaskDashboard";
 import ProjectDashboard from "./components/projects/ProjectDashboard";
 import ClientDashboard from "./components/clients/ClientDashboard";
 import HomeDashboard from "./components/dashboard/HomeDashboard";
+import ProjectDetailViewWrapper from "./components/projects/ProjectDetailWrapper";
+import ClientDetailViewWrapper from "./components/clients/ClientDetailWrapper";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/layout/PrivateRoute";
 import { connect } from "react-redux";
@@ -69,6 +71,14 @@ const App = ({ auth }) => {
                 <Route path="/tasks" element={<PrivateRoute element={TaskDashboard} />} />
                 <Route path="/projects" element={<PrivateRoute element={ProjectDashboard} />} />
                 <Route path="/clients" element={<PrivateRoute element={ClientDashboard} />} />
+                <Route
+                  path="/project-view/:id"
+                  element={<PrivateRoute element={ProjectDetailViewWrapper} />}
+                />
+                <Route
+                  path="/client-view/:id"
+                  element={<PrivateRoute element={ClientDetailViewWrapper} />}
+                />
               </Routes>
             </div>
           </Segment>

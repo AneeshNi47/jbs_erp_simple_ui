@@ -24,7 +24,25 @@ export const getItems = (type, itemName, filterName, filterValue) => (dispatch, 
     );
 };
 
+export const getItem = (type, itemName, id) => (dispatch, getState) => {
+
+  var url = `${BASE_URL}/api/${itemName}/${id}`;
+
+  axios
+    .get(url, tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: type,
+        payload: res.data,
+      });
+    })
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
 export const addItem = (type, itemName, addObjectData) => (dispatch, getState) => {
+  console.log(addObjectData)
   axios
     .post(`${BASE_URL}/api/${itemName}/`, addObjectData, tokenConfig(getState))
     .then((res) => {

@@ -138,16 +138,16 @@ export class AddProject extends Component {
       projected_marginal_profit,
       projected_erection_profit,
       projected_duration,
-      managers, // Include managers in the data to be sent
+      manager: managers, // Include managers in the data to be sent
       client: creatingNewClient ? new_client : client,
       is_active,
     };
 
     const { projectData } = this.props;
     if (projectData) {
-      this.props.updateItem(UPDATE_PROJECT, "project", projectData.id, data);
+      this.props.updateItem(UPDATE_PROJECT, "projects", projectData.id, data);
     } else {
-      this.props.addItem(ADD_PROJECT, "project", data);
+      this.props.addItem(ADD_PROJECT, "projects", data);
     }
     this.props.closeAddProject();
   };

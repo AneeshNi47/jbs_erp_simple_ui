@@ -61,13 +61,13 @@ export class AddLabour extends Component {
             total_value_without_tax,
             tax_percentage,
             sub_contractor,
-            project,
+            project, remarks,
         } = this.state;
 
         const data = {
             total_value_without_tax,
             tax_percentage,
-            sub_contractor,
+            sub_contractor, remarks,
             project: this.props.modalData.project_id || project, // Use passed project_id or selected project
         };
 

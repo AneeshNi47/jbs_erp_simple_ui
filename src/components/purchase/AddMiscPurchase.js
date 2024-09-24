@@ -80,9 +80,9 @@ export class AddMiscPurchase extends Component {
         const { purchaseData } = this.props;
 
         if (purchaseData) {
-            this.props.updateItem(UPDATE_MISC_PURCHASE, "misc-purchases", purchaseData.id, data);
+            this.props.updateItem(UPDATE_MISC_PURCHASE, "miscs", purchaseData.id, data);
         } else {
-            this.props.addItem(ADD_MISC_PURCHASE, "misc-purchases", data);
+            this.props.addItem(ADD_MISC_PURCHASE, "miscs", data);
         }
         this.props.closeModal();
     };
@@ -100,9 +100,11 @@ export class AddMiscPurchase extends Component {
 
         const statusOptions = [
             { key: 1, text: "Created", value: "created" },
-            { key: 2, text: "Submitted", value: "submitted" },
-            { key: 3, text: "Paid", value: "paid" },
-            { key: 4, text: "Rejected", value: "rejected" }
+            { key: 2, text: "Send", value: "send" },
+            { key: 3, text: "Delivered", value: "delivered" },
+            { key: 4, text: "Paid Partial", value: "paid_partial" },
+            { key: 3, text: "Paid Full", value: "paid_full" },
+            { key: 4, text: "Cancelled", value: "cancelled" }
         ];
 
         const miscTypeOptions = [
